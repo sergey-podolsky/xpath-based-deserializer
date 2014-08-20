@@ -5,6 +5,11 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathBasedDeserializer", "XPathBasedDeserializer\XPathBasedDeserializer.csproj", "{DA6A7334-3566-4D5C-BA0C-090B040C831D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathBasedDeserializer.Tests", "XPathBasedDeserializer.Tests\XPathBasedDeserializer.Tests.csproj", "{39A2D263-648B-45CD-9D9A-1654076383B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DA6A7334-3566-4D5C-BA0C-090B040C831D} = {DA6A7334-3566-4D5C-BA0C-090B040C831D}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{DA6A7334-3566-4D5C-BA0C-090B040C831D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA6A7334-3566-4D5C-BA0C-090B040C831D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA6A7334-3566-4D5C-BA0C-090B040C831D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39A2D263-648B-45CD-9D9A-1654076383B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39A2D263-648B-45CD-9D9A-1654076383B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39A2D263-648B-45CD-9D9A-1654076383B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39A2D263-648B-45CD-9D9A-1654076383B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
