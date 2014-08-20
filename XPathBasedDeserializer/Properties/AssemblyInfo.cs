@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("XPathBasedDeserializer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("XML Deserializer Based on XPath")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Sergey Podolsky")]
 [assembly: AssemblyProduct("XPathBasedDeserializer")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
