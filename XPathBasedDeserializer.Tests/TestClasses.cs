@@ -19,6 +19,8 @@ namespace XPathBasedDeserializer.Tests
         [XmlDeserializable]
         internal struct StructWithTwoProperties
         {
+            public const string XmlFile = "TestXmlFiles/StructWithTwoProperties.xml";
+
             public StructWithTwoProperties(string property1, string property2) : this()
             {
                 this.Property1 = property1;
