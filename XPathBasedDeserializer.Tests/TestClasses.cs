@@ -36,12 +36,5 @@ namespace XPathBasedDeserializer.Tests
         internal class EmptyClass
         {
         }
-
-        [XmlDeserializable]
-        internal class ClassWithProperty
-        {
-            [XmlItem]
-            public string Property { get; protected set; }
-        }
     }
 }

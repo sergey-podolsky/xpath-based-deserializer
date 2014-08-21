@@ -53,14 +53,15 @@ namespace XPathBasedDeserializer.Tests
         public void DeserializesFromXElement()
         {
             // Arrange
-            var element = XElement.Parse("<ClassWithProperty><Property>value</Property></ClassWithProperty>");
+            var element = XElement.Parse("<StructWithTwoProperties><Property1>overridden</Property1></StructWithTwoProperties>");
 
             // Act
-            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var xmlDeserializer = new XmlDeserializer<TestClasses.StructWithTwoProperties>();
             var obj = xmlDeserializer.Deserialize(element);
 
             // Assert
-            Assert.AreEqual("value", obj.Property);
+            Assert.AreEqual("overridden", obj.Property1);
+            Assert.IsNull(obj.Property2);
         }
 
         [TestMethod]
@@ -82,14 +83,15 @@ namespace XPathBasedDeserializer.Tests
         public void DeserializesFromXDocument()
         {
             // Arrange
-            var document = XDocument.Parse("<ClassWithProperty><Property>value</Property></ClassWithProperty>");
+            var document = XDocument.Parse("<StructWithTwoProperties><Property1>overridden</Property1></StructWithTwoProperties>");
 
             // Act
-            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var xmlDeserializer = new XmlDeserializer<TestClasses.StructWithTwoProperties>();
             var obj = xmlDeserializer.Deserialize(document);
 
             // Assert
-            Assert.AreEqual("value", obj.Property);
+            Assert.AreEqual("overridden", obj.Property1);
+            Assert.IsNull(obj.Property2);
         }
 
         public void DeserializesFromXDocumentExistingInstance()
@@ -111,14 +113,15 @@ namespace XPathBasedDeserializer.Tests
         public void DeserializesFromXml()
         {
             // Arrange
-            const string Xml = "<ClassWithProperty><Property>value</Property></ClassWithProperty>";
+            const string Xml = "<StructWithTwoProperties><Property1>overridden</Property1></StructWithTwoProperties>";
 
             // Act
-            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var xmlDeserializer = new XmlDeserializer<TestClasses.StructWithTwoProperties>();
             var obj = xmlDeserializer.Deserialize(Xml);
 
             // Assert
-            Assert.AreEqual("value", obj.Property);
+            Assert.AreEqual("overridden", obj.Property1);
+            Assert.IsNull(obj.Property2);
         }
 
         [TestMethod]
@@ -141,15 +144,16 @@ namespace XPathBasedDeserializer.Tests
         public void DeserializesFromUri()
         {
             // Arrange
-            var xmlPath = Path.GetFullPath("TestXmlFiles/ClassWithProperty.xml");
+            var xmlPath = Path.GetFullPath("TestXmlFiles/StructWithTwoProperties.xml");
             var xmlUri = new Uri(xmlPath);
 
             // Act
-            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var xmlDeserializer = new XmlDeserializer<TestClasses.StructWithTwoProperties>();
             var obj = xmlDeserializer.Deserialize(xmlUri);
 
             // Assert
-            Assert.AreEqual("value", obj.Property);
+            Assert.AreEqual("overridden", obj.Property1);
+            Assert.IsNull(obj.Property2);
         }
 
         [TestMethod]
