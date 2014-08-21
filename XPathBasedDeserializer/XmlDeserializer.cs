@@ -41,7 +41,19 @@ namespace XPathBasedDeserializer
         /// <returns>Deserialized object</returns>
         public virtual object Deserialize(Uri xmlUri)
         {
-            return this.Deserialize(XDocument.Load(xmlUri.AbsoluteUri));
+            object obj = null;
+            this.Deserialize(xmlUri, ref obj);
+            return obj;
+        }
+
+        /// <summary>
+        /// Deserializes object from XML accessible by given URI
+        /// </summary>
+        /// <param name="xmlUri">URI of the XML to deserialize from</param>
+        /// <param name="obj">Object instance to deserialize</param>
+        public virtual void Deserialize(Uri xmlUri, ref object obj)
+        {
+            this.Deserialize(XDocument.Load(xmlUri.AbsoluteUri), ref obj);
         }
 
         /// <summary>
@@ -51,7 +63,19 @@ namespace XPathBasedDeserializer
         /// <returns>Deserialized object</returns>
         public virtual object Deserialize(string xml)
         {
-            return this.Deserialize(XDocument.Parse(xml));
+            object obj = null;
+            this.Deserialize(xml, ref obj);
+            return obj;
+        }
+
+        /// <summary>
+        /// Deserializes object from XML
+        /// </summary>
+        /// <param name="xml">XML to deserialize from</param>
+        /// <param name="obj">Object instance to deserialize</param>
+        public virtual void Deserialize(string xml, ref object obj)
+        {
+            this.Deserialize(XDocument.Parse(xml), ref obj);
         }
 
         /// <summary>
@@ -61,7 +85,19 @@ namespace XPathBasedDeserializer
         /// <returns>Deserialized object</returns>
         public virtual object Deserialize(XDocument document)
         {
-            return this.Deserialize(document.Root);
+            object obj = null;
+            this.Deserialize(document, ref obj);
+            return obj;
+        }
+
+        /// <summary>
+        /// Deserializes object from <see cref="XDocument"/>
+        /// </summary>
+        /// <param name="document">XML to deserialize from</param>
+        /// <param name="obj">Object instance to deserialize</param>
+        public virtual void Deserialize(XDocument document, ref object obj)
+        {
+            this.Deserialize(document.Root, ref obj);
         }
 
         /// <summary>
@@ -71,21 +107,34 @@ namespace XPathBasedDeserializer
         /// <returns>Deserialized object</returns>
         public virtual object Deserialize(XElement element)
         {
-            var obj = Activator.CreateInstance(this.type);
+            object obj = null;
+            this.Deserialize(element, ref obj);
+            return obj;
+        }
+
+        /// <summary>
+        /// Deserializes object from <see cref="XElement"/>
+        /// </summary>
+        /// <param name="element">XML to deserialize from</param>
+        /// <param name="obj">Object instance to deserialize</param>
+        public virtual void Deserialize(XElement element, ref object obj)
+        {
+            obj = obj ?? Activator.CreateInstance(this.type);
             var properties = this.type.GetProperties();
             foreach (var propertyInfo in properties)
             {
                 var attributes = propertyInfo.GetCustomAttributes(typeof(XmlItemAttribute), false);
                 if (attributes.Any())
                 {
-                    var evaluateIterator = (IEnumerable<object>)element.XPathEvaluate(propertyInfo.Name);
-                    var xelement = (XElement)evaluateIterator.Single();
-                    var value = xelement.Value;
-                    propertyInfo.SetValue(obj, value, null);
+                    var values = ((IEnumerable<object>)element.XPathEvaluate(propertyInfo.Name)).ToList();
+                    if (values.Any())
+                    {
+                        var xelement = (XElement)values.Single();
+                        var value = xelement.Value;
+                        propertyInfo.SetValue(obj, value, null);
+                    }
                 }
             }
-
-            return obj;
         }
     }
 }
