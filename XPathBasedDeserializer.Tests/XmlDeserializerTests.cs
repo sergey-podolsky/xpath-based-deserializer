@@ -9,7 +9,9 @@
 
 namespace XPathBasedDeserializer.Tests
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using System.Xml.Linq;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +27,7 @@ namespace XPathBasedDeserializer.Tests
         public void DeserializesClass()
         {
             // Arrange
-            var element = new XElement("root");
+            var element = new XElement("EmptyClass");
 
             // Act
             var xmlDeserializer = new XmlDeserializer();
@@ -39,7 +41,7 @@ namespace XPathBasedDeserializer.Tests
         public void DeserializesStruct()
         {
             // Arrannge
-            var element = new XElement("root");
+            var element = new XElement("EmptyStruct");
 
             // Act
             var xmlDeserializer = new XmlDeserializer();
@@ -53,34 +55,56 @@ namespace XPathBasedDeserializer.Tests
         public void DeserializesFromXElement()
         {
             // Arrange
-            var element = XElement.Parse("<root><StringProperty>content</StringProperty></root>");
+            var element = XElement.Parse("<ClassWithProperty><Property>value</Property></ClassWithProperty>");
 
             // Act
             var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithStringPropertyWithoutXPath>(element);
+            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(element);
 
             // Assert
-            Assert.AreEqual("content", obj.StringProperty);
+            Assert.AreEqual("value", obj.Property);
         }
 
         public void DeserializesFromXDocument()
         {
             // Arrange
-            var document = XDocument.Parse("<root><StringProperty>content</StringProperty></root>");
+            var document = XDocument.Parse("<ClassWithProperty><Property>value</Property></ClassWithProperty>");
 
             // Act
             var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithStringPropertyWithoutXPath>(document);
+            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(document);
 
             // Assert
-            Assert.AreEqual("content", obj.StringProperty);
+            Assert.AreEqual("value", obj.Property);
         }
 
         [TestMethod]
-        public void VerifiesXmlRoot()
+        public void DeserializesFromXml()
         {
-            // TODO: Add root property to XmlDeserializable
-            Assert.Fail();
+            // Arrange
+            const string Xml = "<ClassWithProperty><Property>value</Property></ClassWithProperty>";
+
+            // Act
+            var xmlDeserializer = new XmlDeserializer();
+            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(Xml);
+
+            // Assert
+            Assert.AreEqual("value", obj.Property);
+        }
+
+        [TestMethod]
+        public void DeserializesFromUri()
+        {
+            // Arrange
+            var xmlPath = Path.GetFullPath("TestXmlFiles/ClassWithProperty.xml");
+            var xmlUri = new Uri(xmlPath);
+
+            // Act
+            var xmlDeserializer = new XmlDeserializer();
+            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(xmlUri);
+
+            // Assert
+            Assert.AreEqual("value", obj.Property);
         }
     }
 }

@@ -9,8 +9,10 @@
 
 namespace XPathBasedDeserializer
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Xml.Linq;
     using System.Xml.XPath;
 
@@ -19,6 +21,28 @@ namespace XPathBasedDeserializer
     /// </summary>
     public class XmlDeserializer
     {
+        /// <summary>
+        /// Deserializes object from XML accessible by given URI
+        /// </summary>
+        /// <typeparam name="T">Type of the object to deserialize</typeparam>
+        /// <param name="xmlUri">URI of the XML to deserialize from</param>
+        /// <returns>Deserialized object</returns>
+        public T Deserialize<T>(Uri xmlUri) where T : new()
+        {
+            return this.Deserialize<T>(XDocument.Load(xmlUri.AbsoluteUri));
+        }
+
+        /// <summary>
+        /// Deserializes object from XML
+        /// </summary>
+        /// <typeparam name="T">Type of the object to deserialize</typeparam>
+        /// <param name="xml">XML to deserialize from</param>
+        /// <returns>Deserialized object</returns>
+        public T Deserialize<T>(string xml) where T : new()
+        {
+            return this.Deserialize<T>(XDocument.Parse(xml));
+        }
+
         /// <summary>
         /// Deserializes object from <see cref="XDocument"/>
         /// </summary>

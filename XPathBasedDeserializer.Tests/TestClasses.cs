@@ -9,8 +9,6 @@
 
 namespace XPathBasedDeserializer.Tests
 {
-    using System.Diagnostics.CodeAnalysis;
-
     internal static class TestClasses
     {
         [XmlDeserializable]
@@ -24,10 +22,10 @@ namespace XPathBasedDeserializer.Tests
         }
 
         [XmlDeserializable]
-        internal class ClassWithStringPropertyWithoutXPath
+        internal class ClassWithProperty
         {
             [XmlItem]
-            public string StringProperty { get; protected set; }
+            public string Property { get; protected set; }
         }
     }
 }
