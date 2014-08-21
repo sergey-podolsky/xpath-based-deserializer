@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="IConverter.cs" />
     <Compile Include="ObjectConverter.cs" />
+    <Compile Include="TypeTree.cs" />
     <Compile Include="XmlBaseAttribute.cs" />
     <Compile Include="XmlDeserializer{T}.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

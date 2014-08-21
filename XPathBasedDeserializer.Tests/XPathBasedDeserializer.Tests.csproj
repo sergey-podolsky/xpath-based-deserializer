@@ -60,6 +60,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="TestClasses.cs" />
+    <Compile Include="TypeTreeTests.cs" />
     <Compile Include="XmlDeserializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
