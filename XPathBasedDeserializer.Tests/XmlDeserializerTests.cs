@@ -10,7 +10,6 @@
 namespace XPathBasedDeserializer.Tests
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Xml.Linq;
 
@@ -20,7 +19,6 @@ namespace XPathBasedDeserializer.Tests
     /// Contains <see cref="XmlDeserializer"/> tests
     /// </summary>
     [TestClass]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Not relevant for test methods")]
     public class XmlDeserializerTests
     {
         [TestMethod]
@@ -30,8 +28,8 @@ namespace XPathBasedDeserializer.Tests
             var element = new XElement("EmptyClass");
 
             // Act
-            var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.EmptyClass>(element);
+            var xmlDeserializer = new XmlDeserializer<TestClasses.EmptyClass>();
+            var obj = xmlDeserializer.Deserialize(element);
 
             // Assert
             Assert.IsNotNull(obj);
@@ -44,8 +42,8 @@ namespace XPathBasedDeserializer.Tests
             var element = new XElement("EmptyStruct");
 
             // Act
-            var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.EmptyStruct>(element);
+            var xmlDeserializer = new XmlDeserializer<TestClasses.EmptyStruct>();
+            var obj = xmlDeserializer.Deserialize(element);
 
             // Assert
             Assert.IsNotNull(obj);
@@ -58,8 +56,8 @@ namespace XPathBasedDeserializer.Tests
             var element = XElement.Parse("<ClassWithProperty><Property>value</Property></ClassWithProperty>");
 
             // Act
-            var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(element);
+            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var obj = xmlDeserializer.Deserialize(element);
 
             // Assert
             Assert.AreEqual("value", obj.Property);
@@ -71,8 +69,8 @@ namespace XPathBasedDeserializer.Tests
             var document = XDocument.Parse("<ClassWithProperty><Property>value</Property></ClassWithProperty>");
 
             // Act
-            var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(document);
+            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var obj = xmlDeserializer.Deserialize(document);
 
             // Assert
             Assert.AreEqual("value", obj.Property);
@@ -85,8 +83,8 @@ namespace XPathBasedDeserializer.Tests
             const string Xml = "<ClassWithProperty><Property>value</Property></ClassWithProperty>";
 
             // Act
-            var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(Xml);
+            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var obj = xmlDeserializer.Deserialize(Xml);
 
             // Assert
             Assert.AreEqual("value", obj.Property);
@@ -100,8 +98,8 @@ namespace XPathBasedDeserializer.Tests
             var xmlUri = new Uri(xmlPath);
 
             // Act
-            var xmlDeserializer = new XmlDeserializer();
-            var obj = xmlDeserializer.Deserialize<TestClasses.ClassWithProperty>(xmlUri);
+            var xmlDeserializer = new XmlDeserializer<TestClasses.ClassWithProperty>();
+            var obj = xmlDeserializer.Deserialize(xmlUri);
 
             // Assert
             Assert.AreEqual("value", obj.Property);

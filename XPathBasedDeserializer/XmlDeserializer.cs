@@ -12,58 +12,67 @@ namespace XPathBasedDeserializer
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Xml.Linq;
     using System.Xml.XPath;
 
     /// <summary>
-    /// Deserializes objects from XML documents.
+    /// Deserializes objects from XML documents
     /// </summary>
     public class XmlDeserializer
     {
         /// <summary>
+        /// Type of the object to deserialize
+        /// </summary>
+        private readonly Type type;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmlDeserializer"/> class.
+        /// </summary>
+        /// <param name="type">Type of the object to deserialize</param>
+        public XmlDeserializer(Type type)
+        {
+            this.type = type;
+        }
+
+        /// <summary>
         /// Deserializes object from XML accessible by given URI
         /// </summary>
-        /// <typeparam name="T">Type of the object to deserialize</typeparam>
         /// <param name="xmlUri">URI of the XML to deserialize from</param>
         /// <returns>Deserialized object</returns>
-        public T Deserialize<T>(Uri xmlUri) where T : new()
+        public virtual object Deserialize(Uri xmlUri)
         {
-            return this.Deserialize<T>(XDocument.Load(xmlUri.AbsoluteUri));
+            return this.Deserialize(XDocument.Load(xmlUri.AbsoluteUri));
         }
 
         /// <summary>
         /// Deserializes object from XML
         /// </summary>
-        /// <typeparam name="T">Type of the object to deserialize</typeparam>
         /// <param name="xml">XML to deserialize from</param>
         /// <returns>Deserialized object</returns>
-        public T Deserialize<T>(string xml) where T : new()
+        public virtual object Deserialize(string xml)
         {
-            return this.Deserialize<T>(XDocument.Parse(xml));
+            return this.Deserialize(XDocument.Parse(xml));
         }
 
         /// <summary>
         /// Deserializes object from <see cref="XDocument"/>
         /// </summary>
-        /// <typeparam name="T">Type of the object to deserialize</typeparam>
         /// <param name="document">XML to deserialize from</param>
         /// <returns>Deserialized object</returns>
-        public T Deserialize<T>(XDocument document) where T : new()
+        public virtual object Deserialize(XDocument document)
         {
-            return this.Deserialize<T>(document.Root);
+            return this.Deserialize(document.Root);
         }
 
         /// <summary>
         /// Deserializes object from <see cref="XElement"/>
         /// </summary>
-        /// <typeparam name="T">Type of the object to deserialize</typeparam>
         /// <param name="element">XML to deserialize from</param>
         /// <returns>Deserialized object</returns>
-        public T Deserialize<T>(XElement element) where T : new()
+        public virtual object Deserialize(XElement element)
         {
-            var obj = new T();
-            var properties = typeof(T).GetProperties();
+            var obj = Activator.CreateInstance(this.type);
+            var properties = this.type.GetProperties();
             foreach (var propertyInfo in properties)
             {
                 var attributes = propertyInfo.GetCustomAttributes(typeof(XmlItemAttribute), false);
