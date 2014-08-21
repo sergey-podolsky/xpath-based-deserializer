@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="XmlDeserializableAttribute.cs" company="Sergey Podolsky">
+// <copyright file="XmlBaseAttribute.cs" company="Sergey Podolsky">
 //   Copyright (c) Sergey Podolsky. All rights reserved.
 // </copyright>
 // <summary>
-//   AssemblyInfo.cs
+//   Defines the XmlBaseAttribute type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,10 +12,9 @@ namespace XPathBasedDeserializer
     using System;
 
     /// <summary>
-    /// Annotates class as deserializable
+    /// Base class for all project attributes
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class XmlDeserializableAttribute : XmlBaseAttribute
+    public abstract class XmlBaseAttribute : Attribute
     {
     }
 }

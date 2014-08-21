@@ -14,8 +14,8 @@ namespace XPathBasedDeserializer
     /// <summary>
     /// Annotates field or property as deserializable
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class XmlItemAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+    public class XmlItemAttribute : XmlBaseAttribute
     {
     }
 }
