@@ -9,6 +9,8 @@
 
 namespace XPathBasedDeserializer
 {
+    using System.Xml.Linq;
+
     /// <summary>
     /// Converts XPath query result to object
     /// </summary>
@@ -19,6 +21,6 @@ namespace XPathBasedDeserializer
         /// </summary>
         /// <param name="xpathResult">result of XPath query evaluation</param>
         /// <param name="obj">Object to convert to</param>
-        void Convert(object xpathResult, ref object obj);
+        void Convert(XContainer container, XmlDeserializableAttribute attribute, string name, ref object obj);
     }
 }

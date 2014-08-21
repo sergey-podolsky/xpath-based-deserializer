@@ -3,7 +3,7 @@
 //   Copyright (c) Sergey Podolsky. All rights reserved.
 // </copyright>
 // <summary>
-//   AssemblyInfo.cs
+//   Defines the XmlDeserializableAttribute type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,10 +12,10 @@ namespace XPathBasedDeserializer
     using System;
 
     /// <summary>
-    /// Annotates class as deserializable
+    /// Base class for all project attributes
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class XmlDeserializableAttribute : XmlBaseAttribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    public abstract class XmlDeserializableAttribute : Attribute
     {
     }
 }

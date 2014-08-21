@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="XmlItemAttribute.cs" company="Sergey Podolsky">
+// <copyright file="XmlEntryAttribute.cs" company="Sergey Podolsky">
 //   Copyright (c) Sergey Podolsky. All rights reserved.
 // </copyright>
 // <summary>
@@ -9,13 +9,10 @@
 
 namespace XPathBasedDeserializer
 {
-    using System;
-
     /// <summary>
-    /// Annotates field or property as deserializable
+    /// Annotates class, struct, property, or field as deserializable single entry
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    public class XmlItemAttribute : XmlBaseAttribute
+    public class XmlEntryAttribute : XmlDeserializableAttribute
     {
     }
 }

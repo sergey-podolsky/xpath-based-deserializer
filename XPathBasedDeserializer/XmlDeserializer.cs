@@ -10,6 +10,7 @@
 namespace XPathBasedDeserializer
 {
     using System;
+    using System.Linq;
     using System.Xml.Linq;
 
     /// <summary>
@@ -76,28 +77,6 @@ namespace XPathBasedDeserializer
         }
 
         /// <summary>
-        /// Deserializes object from <see cref="XDocument"/>
-        /// </summary>
-        /// <param name="document">XML to deserialize from</param>
-        /// <returns>Deserialized object</returns>
-        public virtual object Deserialize(XDocument document)
-        {
-            object obj = null;
-            this.Deserialize(document, ref obj);
-            return obj;
-        }
-
-        /// <summary>
-        /// Deserializes object from <see cref="XDocument"/>
-        /// </summary>
-        /// <param name="document">XML to deserialize from</param>
-        /// <param name="obj">Object instance to deserialize</param>
-        public virtual void Deserialize(XDocument document, ref object obj)
-        {
-            this.Deserialize(document.Root, ref obj);
-        }
-
-        /// <summary>
         /// Deserializes object from <see cref="XElement"/>
         /// </summary>
         /// <param name="element">XML to deserialize from</param>
@@ -116,8 +95,30 @@ namespace XPathBasedDeserializer
         /// <param name="obj">Object instance to deserialize</param>
         public virtual void Deserialize(XElement element, ref object obj)
         {
-            var objectConverter = new ObjectConverter(this.type);
-            objectConverter.Convert(element, ref obj);
+            this.Deserialize(new XDocument(element), ref obj);
+        }
+
+        /// <summary>
+        /// Deserializes object from <see cref="XDocument"/>
+        /// </summary>
+        /// <param name="document">XML to deserialize from</param>
+        /// <returns>Deserialized object</returns>
+        public virtual object Deserialize(XDocument document)
+        {
+            object obj = null;
+            this.Deserialize(document, ref obj);
+            return obj;
+        }
+
+        /// <summary>
+        /// Deserializes object from <see cref="XDocument"/>
+        /// </summary>
+        /// <param name="document">XML to deserialize from</param>
+        /// <param name="obj">Object instance to deserialize</param>
+        public virtual void Deserialize(XDocument document, ref object obj)
+        {
+            var attribute = (XmlDeserializableAttribute)this.type.GetCustomAttributes(typeof(XmlDeserializableAttribute), false).Single();
+            new ObjectConverter(this.type).Convert(document, attribute, this.type.Name, ref obj);
         }
     }
 }

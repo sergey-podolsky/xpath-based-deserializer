@@ -11,12 +11,12 @@ namespace XPathBasedDeserializer.Tests
 {
     internal static class TestClasses
     {
-        [XmlDeserializable]
+        [XmlEntry]
         internal struct EmptyStruct
         {    
         }
 
-        [XmlDeserializable]
+        [XmlEntry]
         internal struct StructWithTwoProperties
         {
             public const string XmlFile = "TestXmlFiles/StructWithTwoProperties.xml";
@@ -27,14 +27,14 @@ namespace XPathBasedDeserializer.Tests
                 this.Property2 = property2;
             }
 
-            [XmlItem]
+            [XmlEntry]
             public string Property1 { get; private set; }
 
-            [XmlItem]
+            [XmlEntry]
             public string Property2 { get; private set; }
         }
 
-        [XmlDeserializable]
+        [XmlEntry]
         internal class EmptyClass
         {
         }

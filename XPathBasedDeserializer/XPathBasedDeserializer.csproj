@@ -46,16 +46,14 @@
     <Compile Include="IConverter.cs" />
     <Compile Include="ObjectConverter.cs" />
     <Compile Include="TypeTree.cs" />
-    <Compile Include="XmlBaseAttribute.cs" />
+    <Compile Include="XmlDeserializableAttribute.cs" />
+    <Compile Include="XmlCollectionAttribute.cs" />
     <Compile Include="XmlDeserializer{T}.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlDeserializableAttribute.cs">
+    <Compile Include="XmlEntryAttribute.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="XmlDeserializer.cs" />
-    <Compile Include="XmlItemAttribute.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

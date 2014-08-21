@@ -24,15 +24,15 @@ namespace XPathBasedDeserializer
             this.type = type;
         }
 
-        public void Convert(object xpathResult, ref object obj)
+        public void Convert(XContainer container, XmlDeserializableAttribute attribute, string name, ref object obj)
         {
             obj = obj ?? Activator.CreateInstance(this.type);
-            var element = (XElement)xpathResult;
+            var element = container.Element(name);
 
             var properties = this.type.GetProperties();
             foreach (var propertyInfo in properties)
             {
-                var attributes = propertyInfo.GetCustomAttributes(typeof(XmlItemAttribute), false);
+                var attributes = propertyInfo.GetCustomAttributes(typeof(XmlDeserializableAttribute), false);
                 if (attributes.Any())
                 {
                     var values = ((IEnumerable<object>)element.XPathEvaluate(propertyInfo.Name)).ToList();
