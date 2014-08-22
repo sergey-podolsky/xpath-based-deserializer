@@ -19,8 +19,7 @@ namespace XPathBasedDeserializer
         /// <summary>
         /// Converts result of XPath query evaluation to object of target type
         /// </summary>
-        /// <param name="xpathResult">result of XPath query evaluation</param>
         /// <param name="obj">Object to convert to</param>
-        void Convert(XContainer container, XmlDeserializableAttribute attribute, string name, ref object obj);
+        void Convert(XNode node, XmlDeserializableAttribute attribute, string name, ref object obj);
     }
 }
